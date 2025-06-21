@@ -35,3 +35,7 @@ func GetTempByDate() *controllers.GetTempByDateController {
 	useCase := useCase.NewGetTempByDateUc(&mySQL)
 	return  controllers.NewGetTempByDateController(useCase)
 }
+func GetTempByUser() *controllers.GetTempByUserController{
+	useCase := useCase.NewGetTempByUserUc(&mySQL)
+	return  controllers.NewGetTempByUserController(useCase)
+}
