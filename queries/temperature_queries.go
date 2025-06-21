@@ -10,3 +10,7 @@ const GetByDate = `
 SELECT measuremnt,date,time FROM TEMPERATURES
 WHERE user_id = ? AND date = ?
 `
+const GetByUser = `
+SELECT measuremnt,date,time FROM TEMPERATURES
+WHERE user_id = ?
+`
