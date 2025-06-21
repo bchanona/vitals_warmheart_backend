@@ -83,3 +83,30 @@ func (sql *MySQL) GetByDate(user_id int, date string) ([]domain.GetTemperatureMo
 	return temperaturesByDate, nil
 
 }
+
+func (sql *MySQL) GetByUser(user_id int) ([]domain.GetTemperatureModel, error) {
+	var temperaturesByUser []domain.GetTemperatureModel
+
+	rows, err := sql.db.Query(queries.GetByUser, user_id)
+
+	if err != nil {
+		return nil, fmt.Errorf("error al ejecutar la consulta: %v", err)
+	}
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var temperatureByUser domain.GetTemperatureModel
+		err := rows.Scan(
+			&temperatureByUser.Measurement,
+			&temperatureByUser.Date,
+			&temperatureByUser.Time,
+		)
+		if err != nil {
+			return nil, fmt.Errorf("error al escanear fila: %v", err)
+		}
+		temperaturesByUser = append(temperaturesByUser, temperatureByUser)
+	}
+	return temperaturesByUser, nil
+
+}
