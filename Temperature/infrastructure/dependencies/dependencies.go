@@ -31,3 +31,7 @@ func GetAllTemperaturesController() *controllers.GetAllTemperaturesController{
 	useCase := useCase.NewGetAllTemperaturesUc(&mySQL)
 	return controllers.NewGetAllTemperaturesController(useCase)
 }
+func GetTempByDate() *controllers.GetTempByDateController {
+	useCase := useCase.NewGetTempByDateUc(&mySQL)
+	return  controllers.NewGetTempByDateController(useCase)
+}
