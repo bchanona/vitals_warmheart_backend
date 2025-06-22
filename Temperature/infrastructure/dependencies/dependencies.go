@@ -43,3 +43,7 @@ func GetForSupervisor() *controllers.GetForSupervisorController{
 	useCase := useCase.NewGetForSupervisorUc(&mySQL)
 	return controllers.NewGetForSupervisorController(useCase)
 }
+func GetTempLast7DaysController() *controllers.GetTempLastSevenDaysController{
+	useCase := useCase.NewGetTempLastSevenDaysUc(&mySQL)
+	return controllers.NewGetTempLastSevenDaysController(useCase)
+}
