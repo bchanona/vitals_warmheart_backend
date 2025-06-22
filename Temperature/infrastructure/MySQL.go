@@ -110,3 +110,34 @@ func (sql *MySQL) GetByUser(user_id int) ([]domain.GetTemperatureModel, error) {
 	return temperaturesByUser, nil
 
 }
+
+func (sql *MySQL) GetForSupervisor(user_id int) ([]domain.GetTemperatureByUserModel, error) {
+	var temps []domain.GetTemperatureByUserModel
+
+	rows, err := sql.db.Query(queries.GetForSupervisor, user_id)
+	if err != nil {
+		return nil, fmt.Errorf("error al ejecutar la consulta: %v", err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var tempForSu domain.GetTemperatureByUserModel
+		err := rows.Scan(
+			&tempForSu.Measurement,
+			&tempForSu.Date,
+			&tempForSu.Time,
+			&tempForSu.Name_user,
+			&tempForSu.Surname_user,
+			&tempForSu.Email_user,
+		)
+		if err != nil {
+			return nil, fmt.Errorf("error al escanear fila: %v", err)
+		}
+		temps = append(temps, tempForSu)
+	}
+	if err = rows.Err(); err != nil {
+		return nil, fmt.Errorf("error al recorrer filas: %v", err)
+	}
+
+	return temps, nil
+}
