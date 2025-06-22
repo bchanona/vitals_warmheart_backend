@@ -14,3 +14,8 @@ const GetByUser = `
 SELECT measuremnt,date,time FROM TEMPERATURES
 WHERE user_id = ?
 `
+const GetForSupervisor = `
+SELECT t.measurement,t.date,t.time,
+u.name,u.surnames,u.email FROM TEMPERATURES t INNER JOIN USERS u
+ON t.user_id = u.user_id WHERE t.user_id = ?
+`
