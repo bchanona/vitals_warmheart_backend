@@ -15,5 +15,6 @@ func Routes(router *gin.Engine) {
 	routes.POST("/", saveTemperature)
 	routes.GET("/", getTemperatures)
 	routes.GET("/:date")
-	routes.GET("/userId")
+	routes.GET("/user")
+	routes.GET("/supervisor")
 }
