@@ -17,4 +17,5 @@ func Routes(router *gin.Engine) {
 	routes.GET("/:date")
 	routes.GET("/user")
 	routes.GET("/supervisor")
+	routes.GET("/last7Days")
 }
