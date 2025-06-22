@@ -141,3 +141,30 @@ func (sql *MySQL) GetForSupervisor(user_id int) ([]domain.GetTemperatureByUserMo
 
 	return temps, nil
 }
+func (sql *MySQL) GetLast7Days(user_id int)([]domain.GetTemperatureModel, error){
+	var tempLastSevenDays []domain.GetTemperatureModel
+
+	rows, err := sql.db.Query(queries.GetLast7Days,user_id)
+	if err != nil {
+		return nil, fmt.Errorf("error al ejecutar la consulta: %v", err)
+	}
+	defer rows.Close()
+
+	for rows.Next(){
+		var filteredTemperature domain.GetTemperatureModel
+		err := rows.Scan(
+			&filteredTemperature.Measurement,
+			&filteredTemperature.Date,
+			&filteredTemperature.Time,
+		)
+		if err != nil {
+			return nil, fmt.Errorf("error al escanear fila: %v", err)
+		}
+		tempLastSevenDays = append(tempLastSevenDays, filteredTemperature)
+	}
+	if err = rows.Err(); err != nil {
+		return nil, fmt.Errorf("error al recorrer filas: %v", err)
+	}
+	
+	return  tempLastSevenDays, nil
+}
