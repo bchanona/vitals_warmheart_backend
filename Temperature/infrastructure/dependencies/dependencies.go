@@ -39,3 +39,7 @@ func GetTempByUser() *controllers.GetTempByUserController{
 	useCase := useCase.NewGetTempByUserUc(&mySQL)
 	return  controllers.NewGetTempByUserController(useCase)
 }
+func GetForSupervisor() *controllers.GetForSupervisorController{
+	useCase := useCase.NewGetForSupervisorUc(&mySQL)
+	return controllers.NewGetForSupervisorController(useCase)
+}
