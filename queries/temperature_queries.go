@@ -14,6 +14,10 @@ const GetByUser = `
 SELECT measuremnt,date,time FROM TEMPERATURES
 WHERE user_id = ?
 `
+const GetLast7Days = `
+SELECT measurement,date,time FROM TEMPERATURES
+WHERE date >= CURDATE() - INTERVAL 7 DAY AND user_id = ?
+`
 const GetForSupervisor = `
 SELECT t.measurement,t.date,t.time,
 u.name,u.surnames,u.email FROM TEMPERATURES t INNER JOIN USERS u
