@@ -11,7 +11,7 @@ type ITemperatureRepository interface {
 	//Get temperature by user
 	GetByUser(user_id int) ([]GetTemperatureModel, error)
 	//Get temperature for supervisor
-	GetBySupervisor(user_id int) ([]GetTemperatureByUserModel, error)
+	GetForSupervisor(user_id int) ([]GetTemperatureByUserModel, error)
 	//Get temperature for the last 7 days
 	GetLast7Days(user_id int)([]GetTemperatureModel, error)
 }
