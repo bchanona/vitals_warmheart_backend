@@ -35,12 +35,9 @@ func (sql *MySQL) GetAll() ([]domain.GetTemperatureModel, error) {
 		var temp domain.GetTemperatureModel
 
 		err := rows.Scan(
-			&temp.Temperature_id,
-			&temp.User_id,
 			&temp.Measurement,
 			&temp.Date,
 			&temp.Time,
-			&temp.Device_id,
 		)
 		if err != nil {
 			return nil, fmt.Errorf("error al escanear fila: %v", err)
@@ -141,30 +138,30 @@ func (sql *MySQL) GetForSupervisor(user_id int) ([]domain.GetTemperatureByUserMo
 
 	return temps, nil
 }
-func (sql *MySQL) GetLast7Days(user_id int)([]domain.GetTemperatureModel, error){
-	var tempLastSevenDays []domain.GetTemperatureModel
+func (sql *MySQL) GetLast7Days(user_id int)(map[string][]domain.GetTemperatureModel, error){
+	result := make(map[string][]domain.GetTemperatureModel)
 
-	rows, err := sql.db.Query(queries.GetLast7Days,user_id)
+	rows, err := sql.db.Query(queries.GetLast7Days, user_id)
 	if err != nil {
 		return nil, fmt.Errorf("error al ejecutar la consulta: %v", err)
 	}
 	defer rows.Close()
 
-	for rows.Next(){
-		var filteredTemperature domain.GetTemperatureModel
-		err := rows.Scan(
-			&filteredTemperature.Measurement,
-			&filteredTemperature.Date,
-			&filteredTemperature.Time,
-		)
+	for rows.Next() {
+		var temp domain.GetTemperatureModel
+		err := rows.Scan(&temp.Measurement, &temp.Date, &temp.Time)
 		if err != nil {
 			return nil, fmt.Errorf("error al escanear fila: %v", err)
 		}
-		tempLastSevenDays = append(tempLastSevenDays, filteredTemperature)
+
+		
+		date := temp.Date 
+		result[date] = append(result[date], temp)
 	}
-	if err = rows.Err(); err != nil {
+
+	if err := rows.Err(); err != nil {
 		return nil, fmt.Errorf("error al recorrer filas: %v", err)
 	}
-	
-	return  tempLastSevenDays, nil
+
+	return result, nil
 }

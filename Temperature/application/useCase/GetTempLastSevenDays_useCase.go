@@ -10,6 +10,6 @@ func NewGetTempLastSevenDaysUc(db domain.ITemperatureRepository) *GetTempLastSev
 	return &GetTempLastSevenDaysUc{db: db}
 }
 
-func (useCase *GetTempLastSevenDaysUc) Execute(user_id int)([]domain.GetTemperatureModel, error){
+func (useCase *GetTempLastSevenDaysUc) Execute(user_id int)(map[string][]domain.GetTemperatureModel, error){
 	return useCase.db.GetLast7Days(user_id)
 }

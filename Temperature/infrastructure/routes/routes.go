@@ -10,12 +10,16 @@ func Routes(router *gin.Engine) {
 
 	saveTemperature := dependencies.GetSaveTemperatureController().Execute
 	getTemperatures := dependencies.GetAllTemperaturesController().Execute
+	getByDate := dependencies.GetTempByDate().Execute
+	getByUser := dependencies.GetTempByUser().Execute
+	getForSupervisor := dependencies.GetForSupervisor().Execute
+	getTemperaturesLast7Days := dependencies.GetTempLast7DaysController().Execute
 	
 
 	routes.POST("/", saveTemperature)
 	routes.GET("/", getTemperatures)
-	routes.GET("/:date")
-	routes.GET("/user")
-	routes.GET("/supervisor")
-	routes.GET("/last7Days")
+	routes.GET("/:date",getByDate)
+	routes.GET("/user",getByUser)
+	routes.GET("/supervisor", getForSupervisor)
+	routes.GET("/lastSevenDays", getTemperaturesLast7Days)
 }
