@@ -16,7 +16,8 @@ WHERE user_id = ?
 `
 const GetLast7Days = `
 SELECT measurement,date,time FROM TEMPERATURES
-WHERE date >= CURDATE() - INTERVAL 7 DAY AND user_id = ?
+WHERE date >= CURDATE() - INTERVAL 7 DAY AND user_id = ? 
+ORDER BY date ASC, time ASC
 `
 const GetForSupervisor = `
 SELECT t.measurement,t.date,t.time,
