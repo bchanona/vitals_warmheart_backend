@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/bchanona/vitals_warmheart_backend/Temperature/domain"
-	"github.com/bchanona/vitals_warmheart_backend/queries"
+	"github.com/bchanona/vitals_warmheart_backend/Temperature/queries"
 )
 
 type MySQL struct {
