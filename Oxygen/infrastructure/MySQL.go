@@ -41,7 +41,7 @@ func (sql *MySQL) GetAll() ([]domain.GetOxygenModel, error) {
 
 	return oxygenData, nil
 }
-func (sql *MySQL) GetOxygenByDate(userId int, date string) ([]domain.GetOxygenModel, error) {
+func (sql *MySQL) GetByDate(userId int, date string) ([]domain.GetOxygenModel, error) {
 	rows, err := sql.db.Query(queries.GetOxygenByDate, userId, date)
 	if err != nil {
 		return nil, err
