@@ -6,15 +6,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type saveOxygenController struct {
+type SaveOxygenController struct {
 	useCase *useCase.SaveOxygenUc
 }
 
-func NewSaveOxygenController(useCase *useCase.SaveOxygenUc) *saveOxygenController {
-	return &saveOxygenController{useCase: useCase}
+func NewSaveOxygenController(useCase *useCase.SaveOxygenUc) *SaveOxygenController {
+	return &SaveOxygenController{useCase: useCase}
 }
 
-func (controller *saveOxygenController) Execute(ctx *gin.Context) {
+func (controller *SaveOxygenController) Execute(ctx *gin.Context) {
 	var oxygen domain.SaveOxygenModel
 
 	if err := ctx.ShouldBindJSON(&oxygen); err != nil {
