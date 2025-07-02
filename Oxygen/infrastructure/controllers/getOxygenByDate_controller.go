@@ -18,13 +18,13 @@ func (controller *GetOxygenByDateController) Execute(ctx *gin.Context) {
 	user_id_str, exist := ctx.Get("user_id")
 
 	if !exist {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Id de usuario no proporcionado"})
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "User ID not provided"})
 	}
 
 	user_id, ok := user_id_str.(int)
 
 	if !ok {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "ID de usuario no válido"})
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
 		return
 	}
 	date := ctx.Param("date")

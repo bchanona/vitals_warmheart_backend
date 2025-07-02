@@ -33,4 +33,16 @@ func GetGetOxygenByDateController() *controllers.GetOxygenByDateController {
 	useCase := useCase.NewGetOxygenByDateUc(&mySQL)
 	return controllers.NewGetOxygenByDateController(useCase)
 }
+func GetOxygenByUserController() *controllers.GetOxygenByUserController {
+	useCase := useCase.NewGetOxygenByUserUc(&mySQL)
+	return controllers.NewGetOxygenByUserController(useCase)
+}
+func GetForSupervisorController() *controllers.GetForSupervisorController {
+	useCase := useCase.NewGetForSupervisorUc(&mySQL)
+	return controllers.NewGetForSupervisorController(useCase)
+}
+func GetGetOxygenLastSevenDaysController() *controllers.GetOxygenLastSevenDaysController {
+	useCase := useCase.NewGetOxygenLastSevenDaysUc(&mySQL)
+	return controllers.NewGetOxygenLastSevenDaysController(useCase)
+}
 
