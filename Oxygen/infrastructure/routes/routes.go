@@ -2,6 +2,7 @@ package routes
 
 import (
 	"github.com/bchanona/vitals_warmheart_backend/Oxygen/infrastructure/dependencies"
+	"github.com/bchanona/vitals_warmheart_backend/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
@@ -17,10 +18,10 @@ func Routes(router *gin.Engine) {
 
 	routes.POST("/",saveOxygenController)
 	routes.GET("/",getAllOxygenController)
-	routes.GET("/:date", getOxygenByDateController)
-	routes.GET("/user", getOxygenByUserController)
-	routes.GET("/supervisor", getForSupervisor)
-	routes.GET("/lastSevenDays", getOxygenLastSevenDaysController)
+	routes.GET("/:date",middlewares.AuthMiddleware(), getOxygenByDateController)
+	routes.GET("/user",middlewares.AuthMiddleware(), getOxygenByUserController)
+	routes.GET("/supervisor",middlewares.AuthSupervisorMiddleware(), getForSupervisor)
+	routes.GET("/lastSevenDays",middlewares.AuthMiddleware(), getOxygenLastSevenDaysController)
 
 
 }
