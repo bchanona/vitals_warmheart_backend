@@ -2,6 +2,7 @@ package routes
 
 import (
 	"github.com/bchanona/vitals_warmheart_backend/Temperature/infrastructure/dependencies"
+	"github.com/bchanona/vitals_warmheart_backend/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,8 +19,8 @@ func Routes(router *gin.Engine) {
 
 	routes.POST("/", saveTemperature)
 	routes.GET("/", getTemperatures)
-	routes.GET("/:date",getByDate)
-	routes.GET("/user",getByUser)
-	routes.GET("/supervisor", getForSupervisor)
-	routes.GET("/lastSevenDays", getTemperaturesLast7Days)
+	routes.GET("/:date",middlewares.AuthMiddleware(),getByDate)
+	routes.GET("/user",middlewares.AuthMiddleware(),getByUser)
+	routes.GET("/supervisor",middlewares.AuthSupervisorMiddleware(), getForSupervisor)
+	routes.GET("/lastSevenDays",middlewares.AuthMiddleware(), getTemperaturesLast7Days)
 }
