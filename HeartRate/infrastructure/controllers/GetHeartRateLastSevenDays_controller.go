@@ -3,6 +3,7 @@ package controllers
 import (
 	"net/http"
 
+	"github.com/bchanona/vitals_warmheart_backend/HeartRate/application/service"
 	"github.com/bchanona/vitals_warmheart_backend/HeartRate/application/useCase"
 	"github.com/gin-gonic/gin"
 )
@@ -30,10 +31,12 @@ func (controller *GetHeartRateLastSevenDaysController) Execute(ctx *gin.Context)
 		return
 	}
 	heartRates, err := controller.useCase.Execute(user_id)
+	service := service.NewDailyAverageService(heartRates)
+	averages := service.Calculate()
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve heart rates"})
 		return
 	}
-	ctx.JSON(http.StatusOK, gin.H{"heartRates": heartRates})
+	ctx.JSON(http.StatusOK, gin.H{"Averages: ": averages})
 
 }
