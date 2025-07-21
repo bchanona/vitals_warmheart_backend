@@ -6,12 +6,11 @@ import (
 	"github.com/bchanona/vitals_warmheart_backend/helpers"
 	temperatureDependencies "github.com/bchanona/vitals_warmheart_backend/Temperature/infrastructure/dependencies"
 	temperatureRoutes "github.com/bchanona/vitals_warmheart_backend/Temperature/infrastructure/routes"
-	"github.com/bchanona/vitals_warmheart_backend/helpers"
 	"github.com/gin-gonic/gin"
 )
 func main() {
 	oxygenDependencies.Init()
-  temperatureDependencies.Init()
+  	temperatureDependencies.Init()
 	
 
 	// Create a new Gin router
@@ -19,7 +18,7 @@ func main() {
 	helpers.InitCORS(r)
 
 	temperatureRoutes.Routes(r)
-  oxygenRoutes.Routes(r)
+ 	oxygenRoutes.Routes(r)
 
 	r.Run(":8080") // Start the server on port 8080
 
