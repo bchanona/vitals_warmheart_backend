@@ -16,9 +16,9 @@ import (
 
 func main() {
 	oxygenDependencies.Init()
-  temperatureDependencies.Init()
-  heartRateDependencies.Init()
-  customRhythmDependencies.Init()
+  	temperatureDependencies.Init()
+  	heartRateDependencies.Init()
+  	customRhythmDependencies.Init()
 	
 
 
@@ -29,7 +29,8 @@ func main() {
 
 	customRhythmRoutes.Routes(r)
 	temperatureRoutes.Routes(r)
-  oxygenRoutes.Routes(r)
+  	oxygenRoutes.Routes(r)
+	heartRatesRoutes.Routes(r)
 
 	r.Run(":8080") // Start the server on port 8080
 
