@@ -3,6 +3,7 @@ package controllers
 import (
 	"net/http"
 
+	"github.com/bchanona/vitals_warmheart_backend/Oxygen/application/service"
 	"github.com/bchanona/vitals_warmheart_backend/Oxygen/application/useCase"
 	"github.com/gin-gonic/gin"
 )
@@ -29,9 +30,12 @@ func (controller *GetOxygenLastSevenDaysController) Execute(ctx *gin.Context) {
 	}
 
 	oxygens, err := controller.useCase.Execute(userId)
+	service := service.NewDailyAverageService(oxygens)
+	averages := service.Calculate()
+
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	ctx.JSON(http.StatusOK, gin.H{"Oxygens": oxygens})
+	ctx.JSON(http.StatusOK, gin.H{"Averages: ": averages})
 }
