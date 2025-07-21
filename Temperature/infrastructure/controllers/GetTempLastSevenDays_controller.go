@@ -3,6 +3,7 @@ package controllers
 import (
 	"net/http"
 
+	"github.com/bchanona/vitals_warmheart_backend/Temperature/application/service"
 	"github.com/bchanona/vitals_warmheart_backend/Temperature/application/useCase"
 	"github.com/gin-gonic/gin"
 )
@@ -30,10 +31,13 @@ func (controller *GetTempLastSevenDaysController) Execute(ctx *gin.Context) {
 	}
 
 	temperatures, err := controller.useCase.Execute(userId)
+
+	service := service.NewDailyAverageService(temperatures)
+	averages := service.Calculate()
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	ctx.JSON(http.StatusOK, gin.H{"Temperatures": temperatures})
+	ctx.JSON(http.StatusOK, gin.H{"Promedios: ": averages})
 
 }
