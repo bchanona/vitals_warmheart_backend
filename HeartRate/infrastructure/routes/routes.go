@@ -21,6 +21,7 @@ func Routes(router *gin.Engine){
 	routes.GET("/user",middlewares.AuthMiddleware(), getByUser)
 	routes.GET("/supervisor",middlewares.AuthSupervisorMiddleware(), getForSupervisor)
 	routes.GET("/last7days",middlewares.AuthMiddleware(), getLast7Days)
+	routes.GET("/last7daySupervisor",middlewares.AuthSupervisorMiddleware(),getLast7Days)
 
 	
 }
