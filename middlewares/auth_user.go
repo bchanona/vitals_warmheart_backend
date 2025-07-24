@@ -9,7 +9,7 @@ import (
 
 
 
-var jwtKey = []byte("clave02security") // Cambia esto por tu clave secreta
+var jwtKey = []byte("insertarClave") // Cambia esto por tu clave secreta
 
 type Claims struct {
 	User_id int `json:"user_id"`
